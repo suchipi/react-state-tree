@@ -12,7 +12,7 @@ import {
 afterEach(cleanup);
 
 test("basic usage", () => {
-  function Counter({ id }) {
+  function Counter({ id }: { id: string }) {
     const [count, setCount] = useStateTree(0);
 
     return (
@@ -38,8 +38,8 @@ test("basic usage", () => {
     `"<button data-testid=\\"first\\">Count: 0</button><button data-testid=\\"second\\">Count: 0</button>"`
   );
 
-  const firstButton = app.queryByTestId("first");
-  const secondButton = app.queryByTestId("second");
+  const firstButton = app.getByTestId("first");
+  const secondButton = app.getByTestId("second");
 
   fireEvent.click(firstButton);
   fireEvent.click(firstButton);
@@ -58,7 +58,7 @@ Object {
 });
 
 test("user-specified keys in useStateTree call", () => {
-  function Counter({ id }) {
+  function Counter({ id }: { id: string }) {
     const [count, setCount] = useStateTree(0, id);
 
     return (
@@ -86,8 +86,8 @@ test("user-specified keys in useStateTree call", () => {
     `"<button data-testid=\\"first\\">Count: 0</button><button data-testid=\\"second\\">Count: 0</button>"`
   );
 
-  const firstButton = app.queryByTestId("first");
-  const secondButton = app.queryByTestId("second");
+  const firstButton = app.getByTestId("first");
+  const secondButton = app.getByTestId("second");
 
   fireEvent.click(firstButton);
   fireEvent.click(firstButton);
@@ -106,7 +106,7 @@ Object {
 });
 
 test("user-specified keys via nextStateTreeKey", () => {
-  function Counter({ id }) {
+  function Counter({ id }: { id: string }) {
     nextStateTreeKey(id);
     const [count, setCount] = useStateTree(0);
 
@@ -135,8 +135,8 @@ test("user-specified keys via nextStateTreeKey", () => {
     `"<button data-testid=\\"first\\">Count: 0</button><button data-testid=\\"second\\">Count: 0</button>"`
   );
 
-  const firstButton = app.queryByTestId("first");
-  const secondButton = app.queryByTestId("second");
+  const firstButton = app.getByTestId("first");
+  const secondButton = app.getByTestId("second");
 
   fireEvent.click(firstButton);
   fireEvent.click(firstButton);
@@ -155,7 +155,7 @@ Object {
 });
 
 test("StateKey", () => {
-  function Counter({ id }) {
+  function Counter({ id }: { id: string }) {
     const [count, setCount] = useStateTree(0, id);
 
     return (
@@ -185,8 +185,8 @@ test("StateKey", () => {
     `"<button data-testid=\\"first\\">Count: 0</button><button data-testid=\\"second\\">Count: 0</button>"`
   );
 
-  const firstButton = app.queryByTestId("first");
-  const secondButton = app.queryByTestId("second");
+  const firstButton = app.getByTestId("first");
+  const secondButton = app.getByTestId("second");
 
   fireEvent.click(firstButton);
   fireEvent.click(firstButton);
@@ -207,7 +207,7 @@ Object {
 });
 
 test("StateListKey", () => {
-  function Counter({ id }) {
+  function Counter({ id }: { id: string }) {
     const [count, setCount] = useStateTree(0, "count");
 
     return (
@@ -237,8 +237,8 @@ test("StateListKey", () => {
     `"<button data-testid=\\"first\\">Count: 0</button><button data-testid=\\"second\\">Count: 0</button>"`
   );
 
-  const firstButton = app.queryByTestId("first");
-  const secondButton = app.queryByTestId("second");
+  const firstButton = app.getByTestId("first");
+  const secondButton = app.getByTestId("second");
 
   fireEvent.click(firstButton);
   fireEvent.click(firstButton);
@@ -263,7 +263,7 @@ Object {
 });
 
 test("composing StateKey with StateListKey", () => {
-  function Counter({ id }) {
+  function Counter({ id }: { id: string }) {
     const [count, setCount] = useStateTree(0, "count");
 
     return (
@@ -297,8 +297,8 @@ test("composing StateKey with StateListKey", () => {
     `"<button data-testid=\\"first\\">Count: 0</button><button data-testid=\\"second\\">Count: 0</button>"`
   );
 
-  const firstButton = app.queryByTestId("first");
-  const secondButton = app.queryByTestId("second");
+  const firstButton = app.getByTestId("first");
+  const secondButton = app.getByTestId("second");
 
   fireEvent.click(firstButton);
   fireEvent.click(firstButton);
@@ -327,7 +327,7 @@ Object {
 });
 
 test("hydrating state from initial value (simple)", () => {
-  function Counter({ id }) {
+  function Counter({ id }: { id: string }) {
     const [count, setCount] = useStateTree(0, id);
 
     return (
@@ -355,7 +355,7 @@ test("hydrating state from initial value (simple)", () => {
 });
 
 test("hydrating state from initial value (complex)", () => {
-  function Counter({ id }) {
+  function Counter({ id }: { id: string }) {
     const [count, setCount] = useStateTree(0, "count");
 
     return (
@@ -397,7 +397,7 @@ test("hydrating state from initial value (complex)", () => {
 test("useEntireStateTree", () => {
   const initialState = {};
 
-  function Counter({ id }) {
+  function Counter({ id }: { id: string }) {
     const [count, setCount] = useStateTree(0, id);
 
     return (

@@ -1,8 +1,24 @@
 {
   "compilerOptions": {
-    "esModuleInterop": true,
-    "module": "commonjs",
     "target": "es5",
+    "module": "commonjs",
+
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "downlevelIteration": true,
+
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+
     "jsx": "react"
   },
   "files": ["index.tsx"]

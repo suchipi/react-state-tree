@@ -57,7 +57,13 @@ export function StateTreeProvider<StateTreeType extends Object>({
   );
 }
 
-export function StateKey({ value, children }) {
+export function StateKey({
+  value,
+  children,
+}: {
+  value: string | number;
+  children: React.ReactNode;
+}) {
   const parentPath = useContext(StateTreePath);
 
   return (
@@ -67,7 +73,13 @@ export function StateKey({ value, children }) {
   );
 }
 
-export function StateListKey({ value, children }) {
+export function StateListKey({
+  value,
+  children,
+}: {
+  value: string;
+  children: React.ReactNode;
+}) {
   return (
     <StateKey value={value}>
       {React.Children.map(children, (child, index) => {
@@ -86,9 +98,9 @@ export function useEntireStateTree() {
   return { stateTree, replaceStateTree };
 }
 
-let defaultStateTreeKey = null;
+let defaultStateTreeKey: string | number | null = null;
 
-export function nextStateTreeKey(nextKey) {
+export function nextStateTreeKey(nextKey: string | number) {
   defaultStateTreeKey = nextKey;
 }
 
@@ -134,7 +146,7 @@ export function useStateTree<T>(
 
   const targetPath = stateTreePath.concat(keyRef.current);
 
-  const updateState = (nextValue) => {
+  const updateState = (nextValue: T) => {
     replaceStateTree(
       produce(stateTree, (draft) => {
         set(draft, targetPath, nextValue);

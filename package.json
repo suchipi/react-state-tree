@@ -1,6 +1,6 @@
 {
   "name": "react-state-tree",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "index.js",
   "license": "MIT",
   "author": "Lily Scott <me@suchipi.com>",
@@ -14,13 +14,14 @@
     "flux"
   ],
   "dependencies": {
+    "@types/react": "^16.8.8",
+    "@types/react-dom": "^16.8.3",
+    "@types/lodash": "^4.14.149",
     "immer": "^2.1.4",
     "lodash": "^4.17.11"
   },
   "devDependencies": {
     "@types/jest": "^24.0.11",
-    "@types/react": "^16.8.8",
-    "@types/react-dom": "^16.8.3",
     "jest": "^24.5.0",
     "prettier": "^1.16.4",
     "react": "^16.8.4",
