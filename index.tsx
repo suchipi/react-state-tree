@@ -144,6 +144,10 @@ export function useStateTree<T>(
     keyRef.current = generatedKey;
   }
 
+  if (keyRef.current == null) {
+    throw new Error("Expected keyRef to be initialized, but it was not");
+  }
+
   const targetPath = stateTreePath.concat(keyRef.current);
 
   const updateState = (nextValue: T) => {
