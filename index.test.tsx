@@ -57,6 +57,52 @@ Object {
 `);
 });
 
+test("basic usage with factories", () => {
+  function Counter({ id }: { id: string }) {
+    const [count, setCount] = useStateTree(() => 0);
+
+    return (
+      <button data-testid={id} onClick={() => setCount((count) => count + 1)}>
+        Count: {count}
+      </button>
+    );
+  }
+
+  let state = {};
+
+  const app = render(
+    <StateTreeProvider
+      initialValue={state}
+      onUpdate={(newState) => (state = newState)}
+    >
+      <Counter id="first" />
+      <Counter id="second" />
+    </StateTreeProvider>
+  );
+
+  expect(app.container.innerHTML).toMatchInlineSnapshot(
+    `"<button data-testid=\\"first\\">Count: 0</button><button data-testid=\\"second\\">Count: 0</button>"`
+  );
+
+  const firstButton = app.getByTestId("first");
+  const secondButton = app.getByTestId("second");
+
+  fireEvent.click(firstButton);
+  fireEvent.click(firstButton);
+
+  fireEvent.click(secondButton);
+
+  expect(app.container.innerHTML).toMatchInlineSnapshot(
+    `"<button data-testid=\\"first\\">Count: 2</button><button data-testid=\\"second\\">Count: 1</button>"`
+  );
+  expect(state).toMatchInlineSnapshot(`
+Object {
+  "$0": 2,
+  "$1": 1,
+}
+`);
+});
+
 test("user-specified keys in useStateTree call", () => {
   function Counter({ id }: { id: string }) {
     const [count, setCount] = useStateTree(0, id);

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef } from "react";
+import React, { useState, useContext, useRef, SetStateAction } from "react";
 import { get, set } from "lodash";
 import produce from "immer";
 
@@ -105,12 +105,13 @@ export function nextStateTreeKey(nextKey: string | number) {
 }
 
 export function useStateTree<T>(
-  initialValue: T,
+  factory: T | (() => T),
   key = defaultStateTreeKey
-): [T, (nextValue: T) => void] {
+): [T, React.Dispatch<SetStateAction<T>>] {
   defaultStateTreeKey = null;
 
   const keyRef = useRef(key);
+  const initialValue: T = factory instanceof Function ? factory() : factory;
 
   const stateTreeApi = useContext(StateTree);
   if (stateTreeApi === defaultStateTreeAPI) {
@@ -150,10 +151,15 @@ export function useStateTree<T>(
 
   const targetPath = stateTreePath.concat(keyRef.current);
 
-  const updateState = (nextValue: T) => {
+  const updateState = (nextValue: T | ((current: T) => T)) => {
     replaceStateTree(
       produce(stateTree, (draft) => {
-        set(draft, targetPath, nextValue);
+        if (nextValue instanceof Function) {
+          const current = get(stateTree, targetPath, MISSING);
+          set(draft, targetPath, nextValue(current));
+        } else {
+          set(draft, targetPath, nextValue);
+        }
       })
     );
   };
