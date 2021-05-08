@@ -18,7 +18,7 @@
     "@types/react-dom": "^16.8.3",
     "@types/lodash": "^4.14.149",
     "immer": "^2.1.4",
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@types/jest": "^24.0.11",
